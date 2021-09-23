@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Fornecedor;
-use Illumita\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
 class FornecedorSeeder extends Seeder
 {
@@ -40,8 +40,6 @@ class FornecedorSeeder extends Seeder
             'uf'=> 'SP',
             'email'=> 'contato@fornecedor300.com.br',
         ]);
-
-
 
     }
 }
