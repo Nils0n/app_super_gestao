@@ -11,7 +11,7 @@ use App\Http\Controllers\SobreNosController;
 
 Route::get('/', [PrincipalController::class , 'index'])->name('site.index');
 Route::get('/contato', [ContatoController::class , 'index'])->name('site.contato');
-Route::post('', [ContatoController::class , 'save'])->name('site.contato.save');
+Route::post('', [ContatoController::class , 'store'])->name('site.contato.store');
 
 Route::get('/sobrenos', [SobreNosController::class , 'index'])->name('site.sobrenos');
 
