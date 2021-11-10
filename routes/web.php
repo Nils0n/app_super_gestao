@@ -5,17 +5,13 @@ use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\SobreNosController;
 
-
-
-
-
 Route::get('/', [PrincipalController::class , 'index'])->name('site.index');
 Route::get('/contato', [ContatoController::class , 'index'])->name('site.contato');
-Route::post('', [ContatoController::class , 'store'])->name('site.contato.store');
+Route::post('/contato', [ContatoController::class , 'store'])->name('site.contato.store');
 
 Route::get('/sobrenos', [SobreNosController::class , 'index'])->name('site.sobrenos');
 
-Route::prefix('/app')->group(function(){
+Route::middleware('autenticacao')->prefix('/app')->group(function(){
     Route::get('/clientes', function(){return 'clientes';});
     Route::get('/fornecedores', function(){return 'fornecedores';});
     Route::get('/produtos', function(){return 'produtos';});
