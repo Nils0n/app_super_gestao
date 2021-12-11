@@ -33,11 +33,17 @@ class LoginController extends Controller
             $_SESSION['name'] = $user->name;
             $_SESSION['email'] = $user->email;
 
-            return redirect()->route('app.clientes');
+            return redirect()->route('app.home');
         }else{
             return back()->withErrors(['errors' => 'usuário inválido']);
         }
 
         return 'miau';
+    }
+
+    public function exit(){
+        session_destroy();
+
+        return redirect()->route('site.index')->with('success', 'Logout efetuado com sucesso!');
     }
 }
