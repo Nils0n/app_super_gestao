@@ -148,6 +148,9 @@ class FornecedorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $fornecedor = Fornecedor::find($id);
+        $fornecedor->delete();
+
+        return redirect()->route('app.fornecedor.list')->with('success' , 'Fornecedor deletado com sucesso.');
     }
 }
