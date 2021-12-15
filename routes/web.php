@@ -32,7 +32,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
         Route::post('/list', [FornecedorController::class, 'list'])->name('app.fornecedor.list');
         Route::get('/editar/{id}', [FornecedorController::class, 'edit'])->name('app.fornecedor.edit');
         Route::put('/editar/{id}', [FornecedorController::class, 'update'])->name('app.fornecedor.update');
-        Route::get('/deletar/{id}', [FornecedorController::class, 'destroy'])->name('app.fornecedor.destroy');
+        Route::delete('/deletar/{id}', [FornecedorController::class, 'destroy'])->name('app.fornecedor.destroy');
     });
 
     Route::prefix('produto')->group(function () {
@@ -42,7 +42,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
         Route::post('/criar' , [ProdutoController::class, 'store'])->name('app.produto.store');
         Route::get('/editar/{id}' , [ProdutoController::class , 'edit'])->name('app.produto.edit');
         Route::put('/editar/{id}' , [ProdutoController::class , 'update'])->name('app.produto.edit');
-        Route::get('/deletar/{id}', [ProdutoController::class, 'destroy'])->name('app.produto.destroy');
+        Route::delete('/deletar/{id}', [ProdutoController::class, 'destroy'])->name('app.produto.destroy');
     });
 });
 

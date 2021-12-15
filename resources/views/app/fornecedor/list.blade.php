@@ -30,8 +30,17 @@
                                 <td>{{ $fornecedor->site }}</td>
                                 <td>{{ $fornecedor->uf }}</td>
                                 <td>{{ $fornecedor->email }}</td>
-                                <td> <a href="{{route('app.fornecedor.destroy' , ['id' => $fornecedor->id])}}">Excluir</a></td>
-                                <td> <a href="{{route('app.fornecedor.edit' , ['id' => $fornecedor->id])}}">Editar</a></td>
+                                <td>
+                                    <form id="form-delete-{{ $fornecedor->id }}"
+                                        action="{{ route('app.fornecedor.destroy', ['id' => $fornecedor->id]) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+
+                                        <a href="#"  onclick="document.getElementById('form-delete-{{ $fornecedor->id }}').submit()">Excluir</a>
+                                    </form>
+                                </td>
+                                <td> <a href="{{ route('app.fornecedor.edit', ['id' => $fornecedor->id]) }}">Editar</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
