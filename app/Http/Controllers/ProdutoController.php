@@ -81,7 +81,9 @@ class ProdutoController extends Controller
      */
     public function show($id)
     {
-        //
+        $produto = Produto::find($id);
+
+        return view('app.produto.show' , compact('produto'));
     }
 
     /**
@@ -92,7 +94,11 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = Produto::find($id);
+        $unidades = Unidade::all();
+
+
+        return view('app.produto.edit' , compact('produto' , 'unidades'));
     }
 
     /**
@@ -103,8 +109,36 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'weight' => 'required |min:1',
+        ];
+
+        $messages = [
+            'name.required' => 'Campo nome é obrigatório',
+            'description.required' => 'Campo descrição é obrigatório',
+            'weight.required' => 'Campo peso é obrigatório',
+            'weight.min' => 'O peso mínimo é 1 kg ',
+        ];
+
+        $request->validate($rules , $messages);
+        $produto = Produto::find($id);
+
+        try{
+            $produto->update([
+                'nome' => $request->input('name'),
+                'descricao' => $request->input('description'),
+                'peso' => $request->input('weight'),
+                'unidade_id' => $request->input('unidade_id') == null ? $produto->unidade_id : $request->input('unidade_id'),
+            ]);
+        }catch(Exception $e) {
+            return back()->withErrors(['errors' => 'Houve algum erro ao adicionar o produto, verifique os campos e tente novamente']);
+
+        }
+
+        return redirect()->route('app.produto.show' , ['id' => $produto->id])->with('success' , 'Produto atualizado com sucesso.');
     }
 
     /**
@@ -115,6 +149,9 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = Produto::find($id);
+        $produto->delete();
+
+        return redirect()->route('app.produto')->with('success' , 'Produto deletado com sucesso.');
     }
 }

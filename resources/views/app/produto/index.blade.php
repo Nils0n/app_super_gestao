@@ -23,17 +23,19 @@
                             <th>Unidade id</th>
                             <th></th>
                             <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($produtos as $produtos)
+                        @foreach ($produtos as $produto)
                             <tr>
-                                <td>{{ $produtos->nome }}</td>
-                                <td>{{ $produtos->descricao }}</td>
-                                <td>{{ $produtos->peso}}</td>
-                                <td>{{ $produtos->unidade_id }}</td>
-                                <td> <a href="">Excluir</a></td>
-                                <td> <a href="">Editar</a></td>
+                                <td>{{ $produto->nome }}</td>
+                                <td>{{ $produto->descricao }}</td>
+                                <td>{{ $produto->peso}}</td>
+                                <td>{{ $produto->unidade_id }}</td>
+                                <td> <a href="{{route('app.produto.show', ['id' => $produto->id])}}">Visualizar</a></td>
+                                <td> <a href="{{route('app.produto.destroy' , ['id' => $produto->id])}}">Excluir</a></td>
+                                <td> <a href="{{route('app.produto.edit', ['id' => $produto->id])}}">Editar</a></td>
                             </tr>
                         @endforeach
                     </tbody>

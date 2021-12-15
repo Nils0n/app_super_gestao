@@ -38,6 +38,7 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
     Route::prefix('produto')->group(function () {
         Route::get('/', [ProdutoController::class, 'index'])->name('app.produto');
         Route::get('/criar', [ProdutoController::class, 'create'])->name('app.produto.create');
+        Route::get('/{id}', [ProdutoController::class , 'show'])->name('app.produto.show');
         Route::post('/criar' , [ProdutoController::class, 'store'])->name('app.produto.store');
         Route::get('/editar/{id}' , [ProdutoController::class , 'edit'])->name('app.produto.edit');
         Route::put('/editar/{id}' , [ProdutoController::class , 'update'])->name('app.produto.edit');
