@@ -8,7 +8,9 @@
             <p>Criar Fornecedor</p>
         </div>
         
-        @include('app.layouts.partials.menu-fornecedor')
+        @component('components.menu-app' , ['rota' => 'fornecedor'])
+
+        @endcomponent
 
         <div class="informacao-pagina">
             <div class="" style="width: 30%; margin:auto;">

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\SiteContatoSeeder::factory(100)->create();
 
         $this->call(MotivoContatoSeeder::class);
+        $this->call(UnidadeSeeder::class);
 
     }
 }

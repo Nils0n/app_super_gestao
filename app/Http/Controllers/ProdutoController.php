@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
+use App\Models\Unidade;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
@@ -26,7 +28,9 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidade::all();
+
+        return view('app.produto.create' , compact('unidades'));
     }
 
     /**
@@ -37,7 +41,36 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'name' => 'required',
+            'description' => 'required',
+            'weight' => 'required |min:1',
+            'unidade_id' => 'required',
+        ];
+
+        $messages = [
+            'name.required' => 'Campo nome é obrigatório',
+            'description.required' => 'Campo descrição é obrigatório',
+            'weight.required' => 'Campo peso é obrigatório',
+            'weight.min' => 'O peso mínimo é 1 kg ',
+            'unidade.required' => 'Campo unidade é obrigatório',
+        ];
+
+        $request->validate($rules , $messages);
+        Produto::create([
+            'nome' => $request->input('name'),
+            'descricao' => $request->input('description'),
+            'peso' => $request->input('weight'),
+            'unidade_id' => $request->input('unidade_id'),
+        ]);
+
+        try{
+
+        }catch(Exception $e){
+            return back()->withErrors(['errors' => 'Houve algum erro ao adicionar o produto, verifique os campos e tente novamente']);
+        }
+
+        return redirect()->route('app.produto')->with('success' , 'Produto adicionado com sucesso');
     }
 
     /**

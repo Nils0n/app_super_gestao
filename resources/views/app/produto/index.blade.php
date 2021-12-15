@@ -8,7 +8,9 @@
             <p>Listagem de Produtos</p>
         </div>
 
-        @include('app.layouts.partials.menu-fornecedor')
+        @component('components.menu-app', ['rota' => 'produto'])
+            
+        @endcomponent
 
         <div class="informacao-pagina">
             <div class="" style="width: 90%; margin:auto;">
