@@ -14,7 +14,7 @@
 
         <div class="informacao-pagina">
             <div class="" style="width: 30%; margin:auto;">
-                <form action="{{route('app.produto.edit', ['id' => $produto->id])}}" method="post">
+                <form action="{{route('app.produto.update', ['id' => $produto->id])}}" method="post">
                     @csrf
                     @method('PUT')
 

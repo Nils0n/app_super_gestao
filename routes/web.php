@@ -8,6 +8,7 @@ use App\Http\Controllers\FornecedorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\ProdutoDetalheController;
 use App\Http\Controllers\SobreNosController;
 
 Route::get('/', [PrincipalController::class, 'index'])->name('site.index');
@@ -41,8 +42,18 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
         Route::get('/{id}', [ProdutoController::class , 'show'])->name('app.produto.show');
         Route::post('/criar' , [ProdutoController::class, 'store'])->name('app.produto.store');
         Route::get('/editar/{id}' , [ProdutoController::class , 'edit'])->name('app.produto.edit');
-        Route::put('/editar/{id}' , [ProdutoController::class , 'update'])->name('app.produto.edit');
+        Route::put('/editar/{id}' , [ProdutoController::class , 'update'])->name('app.produto.update');
         Route::delete('/deletar/{id}', [ProdutoController::class, 'destroy'])->name('app.produto.destroy');
+    });
+
+    Route::prefix('produto-detalhe', function(){
+        Route::get('/', [ProdutoDetalheController::class , 'index'])->name('app.produto-detalhe');
+        Route::get('/criar', [ProdutoDetalheController::class , 'create'])->name('app.produto-detalhe.create');
+        Route::get('/{id}' , [ProdutoDetalheController::class , 'show'])->name('app.produto-detalhe.show');
+        Route::post('/criar' , [ProdutoDetalheController::class , 'store'])->name('app.produto-detalhe.store');
+        Route::get('/editar/{id}' , [ProdutoDetalheController::class , 'edit'])->name('app.produto-detalhe.edit');
+        Route::put('/editar/{id}' , [ProdutoDetalheController::class , 'update'])->name('app.produto-detalhe.update');
+        Route::delete('/deletar/{id}' , [ProdutoDetalheController::class , 'destroy'])->name('app.produto-detalhe.destroy');
     });
 });
 
