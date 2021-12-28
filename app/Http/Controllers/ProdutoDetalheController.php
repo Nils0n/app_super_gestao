@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Produto;
+use App\Models\Unidade;
 use Illuminate\Http\Request;
 
 class ProdutoDetalheController extends Controller
@@ -23,7 +25,10 @@ class ProdutoDetalheController extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidade::all();
+        $produtos = Produto::all();
+
+        return view('app.produto-detalhe.create' , compact('unidades' , 'produtos'));
     }
 
     /**
