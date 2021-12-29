@@ -24,9 +24,9 @@
                         @endforeach
                     </select>
 
-                    <input type="text" class="borda-preta" name="length" placeholder="Comprimento" required>
-                    <input type="number" class="borda-preta" name="width" placeholder="Largura" min="1" required>
-                    <input type="number" class="borda-preta" name="height" placeholder="Altura" min="1" required>
+                    <input type="number" class="borda-preta" name="length" placeholder="Comprimento" min="0" required>
+                    <input type="number" class="borda-preta" name="width" placeholder="Largura" min="0" required>
+                    <input type="number" class="borda-preta" name="height" placeholder="Altura" min="0" required>
 
                     <select name="unidade_id" id="unidade_id" required>
                         <option value="">Selecione a unidade</option>
