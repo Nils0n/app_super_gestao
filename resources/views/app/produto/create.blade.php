@@ -21,6 +21,13 @@
                     <input type="text" class="borda-preta" name="description" placeholder="Descrição" required>
                     <input type="number" class="borda-preta" name="weight" placeholder="Peso em kg" min="1" required>
 
+                    <select name="fornecedor_id" id="">
+                        <option value="">Selecione o fornecedor</option>
+                        @foreach ($fornecedores as $fornecedor)
+                            <option value="{{$fornecedor->id}}">{{$fornecedor->nome}}</option>
+                        @endforeach
+                    </select>
+
                     <select name="unidade_id" id="unidade_id" required>
                         <option value="">Selecione a unidade</option>
                         @foreach ($unidades as $unidade)

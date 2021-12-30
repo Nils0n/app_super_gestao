@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fornecedor;
 use App\Models\Produto;
 use App\Models\Unidade;
 use Exception;
@@ -16,9 +17,9 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        $produtos = Produto::all(); 
+        $produtos = Produto::all();
 
-        return view('app.produto.index' , compact('produtos'));
+        return view('app.produto.index', compact('produtos'));
     }
 
     /**
@@ -29,8 +30,9 @@ class ProdutoController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
+        $fornecedores = Fornecedor::all();
 
-        return view('app.produto.create' , compact('unidades'));
+        return view('app.produto.create', compact('unidades', 'fornecedores'));
     }
 
     /**
@@ -46,6 +48,7 @@ class ProdutoController extends Controller
             'description' => 'required',
             'weight' => 'required |min:1',
             'unidade_id' => 'required',
+            'fornecedor_id' => 'required'
         ];
 
         $messages = [
@@ -54,23 +57,24 @@ class ProdutoController extends Controller
             'weight.required' => 'Campo peso é obrigatório',
             'weight.min' => 'O peso mínimo é 1 kg ',
             'unidade.required' => 'Campo unidade é obrigatório',
+            'fornecedor_id.required' => 'Por favor informe um fornecedor'
         ];
 
-        $request->validate($rules , $messages);
+        $request->validate($rules, $messages);
         Produto::create([
             'nome' => $request->input('name'),
             'descricao' => $request->input('description'),
             'peso' => $request->input('weight'),
             'unidade_id' => $request->input('unidade_id'),
+            'fornecedor_id' => $request->input('fornecedor_id')
         ]);
 
-        try{
-
-        }catch(Exception $e){
+        try {
+        } catch (Exception $e) {
             return back()->withErrors(['errors' => 'Houve algum erro ao adicionar o produto, verifique os campos e tente novamente']);
         }
 
-        return redirect()->route('app.produto')->with('success' , 'Produto adicionado com sucesso');
+        return redirect()->route('app.produto')->with('success', 'Produto adicionado com sucesso');
     }
 
     /**
@@ -83,7 +87,7 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
 
-        return view('app.produto.show' , compact('produto'));
+        return view('app.produto.show', compact('produto'));
     }
 
     /**
@@ -96,9 +100,10 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         $unidades = Unidade::all();
+        $fornecedores = Fornecedor::all();
 
 
-        return view('app.produto.edit' , compact('produto' , 'unidades'));
+        return view('app.produto.edit', compact('produto', 'unidades', 'fornecedores'));
     }
 
     /**
@@ -109,11 +114,13 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $rules = [
             'name' => 'required',
             'description' => 'required',
             'weight' => 'required |min:1',
+            'fornecedor_id' => 'required'
+
         ];
 
         $messages = [
@@ -121,24 +128,24 @@ class ProdutoController extends Controller
             'description.required' => 'Campo descrição é obrigatório',
             'weight.required' => 'Campo peso é obrigatório',
             'weight.min' => 'O peso mínimo é 1 kg ',
+            'fornecedor_id.required' => 'Por favor informe um fornecedor'
         ];
 
-        $request->validate($rules , $messages);
+        $request->validate($rules, $messages);
         $produto = Produto::find($id);
 
-        try{
+        try {
             $produto->update([
                 'nome' => $request->input('name'),
                 'descricao' => $request->input('description'),
                 'peso' => $request->input('weight'),
                 'unidade_id' => $request->input('unidade_id') == null ? $produto->unidade_id : $request->input('unidade_id'),
             ]);
-        }catch(Exception $e) {
+        } catch (Exception $e) {
             return back()->withErrors(['errors' => 'Houve algum erro ao adicionar o produto, verifique os campos e tente novamente']);
-
         }
 
-        return redirect()->route('app.produto.show' , ['id' => $produto->id])->with('success' , 'Produto atualizado com sucesso.');
+        return redirect()->route('app.produto.show', ['id' => $produto->id])->with('success', 'Produto atualizado com sucesso.');
     }
 
     /**
@@ -152,6 +159,6 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
         $produto->delete();
 
-        return redirect()->route('app.produto')->with('success' , 'Produto deletado com sucesso.');
+        return redirect()->route('app.produto')->with('success', 'Produto deletado com sucesso.');
     }
 }

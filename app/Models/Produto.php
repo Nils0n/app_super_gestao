@@ -9,9 +9,13 @@ class Produto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nome' , 'descricao' , 'peso' , 'unidade_id'];
+    protected $fillable = ['fornecedor_id','nome' , 'descricao' , 'peso' , 'unidade_id'];
 
     public function detalhe(){
         return $this->hasOne(ProdutoDetalhe::class);
+    }
+
+    public function fornecedor(){
+        return $this->hasMany(Fornecedor::class);
     }
 }

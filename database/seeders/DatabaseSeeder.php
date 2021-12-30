@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MotivoContatoSeeder::class);
         $this->call(UnidadeSeeder::class);
+        $this->call(UserSeeder::class);
 
     }
 }
