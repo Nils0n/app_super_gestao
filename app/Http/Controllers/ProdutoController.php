@@ -140,6 +140,7 @@ class ProdutoController extends Controller
                 'descricao' => $request->input('description'),
                 'peso' => $request->input('weight'),
                 'unidade_id' => $request->input('unidade_id') == null ? $produto->unidade_id : $request->input('unidade_id'),
+                'fornecedor_id' => $request->input('fornecedor_id'),
             ]);
         } catch (Exception $e) {
             return back()->withErrors(['errors' => 'Houve algum erro ao adicionar o produto, verifique os campos e tente novamente']);
