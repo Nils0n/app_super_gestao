@@ -12,13 +12,23 @@ class CreateUsersTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {   
+        /*
+            role:
+
+            0 - ADM MASTER
+            1 - GERENTE
+            2 - CLIENTE
+
+        */
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', [ 0 , 1 , 2 ]);
             $table->rememberToken();
             $table->timestamps();
         });
