@@ -15,12 +15,12 @@ class CreateSiteContatosTable extends Migration
     {
         Schema::create('site_contatos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
-            $table->string('telefone' , 20);
-            $table->integer('motivo_contato');
+            $table->string('nome');
+            $table->string('telefone');
+            $table->string('email');
             $table->text('mensagem');
-            
-
+            $table->foreignId('motivo_contato_id')->constrained('motivo_contatos');
+            $table->timestamps();
         });
     }
 

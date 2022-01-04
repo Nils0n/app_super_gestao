@@ -10,6 +10,9 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\ProdutoDetalheController;
 use App\Http\Controllers\SobreNosController;
+use App\Mail\ContactMail;
+use App\Models\MotivoContato;
+use App\Models\SiteContato;
 
 Route::get('/', [PrincipalController::class, 'index'])->name('site.index');
 Route::get('/contato', [ContatoController::class, 'index'])->name('site.contato');
@@ -59,4 +62,11 @@ Route::middleware('autenticacao')->prefix('/app')->group(function () {
 
 Route::fallback(function () {
     echo 'A rota acessada não existe. clique <a href="' . route('site.index') . '">aqui </a> para voltar a página inicial.';
+});
+
+Route::get('/email' , function(){
+
+    $contact = SiteContato::find(4);
+
+    return new ContactMail($contact);
 });

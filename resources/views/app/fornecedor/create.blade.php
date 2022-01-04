@@ -5,7 +5,7 @@
 @section('content')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Criar Fornecedor</p>
+            <p>Cadastrar Fornecedor</p>
         </div>
         
         @component('components.menu-app' , ['rota' => 'fornecedor'])
